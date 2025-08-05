@@ -1,0 +1,21 @@
+# Ignore Python virtual environments
+venv/
+.env
+ENV/
+env/
+.venv/
+
+# Python cache files
+__pycache__/
+*.pyc
+
+# IDE/editor folders (optional, but recommended)
+.vscode/
+.idea/
+
+# OS cruft
+.DS_Store
+Thumbs.db
+
+# Logs (if you have a logs folder)
+logs/
