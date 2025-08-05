@@ -94,3 +94,5 @@ docker push sergeytemkin/quakewatch:latest
 # Pull and run your app image from Docker Hub with this command
 docker run -p 5000:5000 sergeytemkin/quakewatch:latest
 
+docker run -p 5000:5000 -v $(pwd)/logs:/app/logs sergeytemkin/quakewatch:latest
+

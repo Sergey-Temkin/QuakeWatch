@@ -1,5 +1,4 @@
 version: "3.8"
-
 services:
   quakewatch:
     build: .
@@ -7,6 +6,7 @@ services:
     ports:
       - "5000:5000"
     volumes:
-      - .:/app   # Optional: allows code changes to reflect without rebuilding
+      - .:/app
+      - ./logs:/app/logs
     environment:
       - FLASK_ENV=development
