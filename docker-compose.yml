@@ -1,0 +1,12 @@
+version: "3.8"
+services:
+  quakewatch:
+    build: .
+    container_name: quakewatch
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+      - ./logs:/app/logs
+    environment:
+      - FLASK_ENV=development
