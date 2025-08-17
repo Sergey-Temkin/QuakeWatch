@@ -1,0 +1,110 @@
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+*.egg
+*.egg-info/
+*.manifest
+*.spec
+*.pyc
+
+# Virtual Environments
+venv/
+ENV/
+env/
+.venv/
+.python-version
+
+# Jupyter / IPython
+.ipynb_checkpoints/
+.profile_default/
+ipython_config.py
+
+# PyInstaller
+build/
+dist/
+*.egg-info/
+
+# =========================
+# Flask / Web
+# =========================
+instance/
+.webassets-cache
+*.log
+logs/
+*.db
+*.sqlite
+*.sqlite3
+
+# Matplotlib cache
+~/.matplotlib/
+
+# =========================
+# Environment / Secrets
+# =========================
+.env
+.env.*
+*.secret
+*.pem
+*.crt
+*.key
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Icon?
+desktop.ini
+
+# =========================
+# IDEs / Editors
+# =========================
+# PyCharm
+.idea/
+*.iml
+
+# VSCode
+.vscode/
+.history/
+*.code-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# =========================
+# Docker / Kubernetes
+# =========================
+# Local docker-compose override files
+docker-compose.override.yml
+
+# Docker build cache
+*.tar
+*.bak
+
+# Kubernetes local config
+.kube/
+*.yaml.backup
+*.yml.backup
+
+# =========================
+# Archives / Backups
+# =========================
+*.zip
+*.tar.gz
+*.rar
+*.7z
+*.bak
+*.tmp
+*.old
+
+# Default ignored files
+/shelf/
+/workspace.xml
