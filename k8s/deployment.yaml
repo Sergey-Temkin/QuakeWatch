@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quakewatch
+  labels:
+    app: quakewatch
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: quakewatch
+  template:
+    metadata:
+      labels:
+        app: quakewatch
+    spec:
+      containers:
+        - name: app
+          image: quakewatch:v1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000
+          # Small requests so it fits your 2GB cluster
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "96Mi"
+            limits:
+              cpu: "300m"
+              memory: "256Mi"
+          # Probes hit your Flask route /health
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 20
+            periodSeconds: 20
+          envFrom:    # will get values from ConfigMap/Secret below
+            - configMapRef:
+                name: quakewatch-config
+            - secretRef:
+                name: quakewatch-secret

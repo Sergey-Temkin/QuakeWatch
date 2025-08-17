@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: quakewatch-ping
+spec:
+  schedule: "*/1 * * * *"
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: pinger
+              image: curlimages/curl:8.9.1
+              args:
+                - /bin/sh
+                - -c
+                - |
+                  echo "[$(date -Is)] ping"
+                  curl -fsS http://quakewatch-svc.default.svc.cluster.local/ || exit 1
