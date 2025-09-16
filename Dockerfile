@@ -1,22 +1,25 @@
-# Use official Python slim image
-FROM python:3.11-slim
+# syntax=docker/dockerfile:1
 
-# Set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+FROM python:3.12-slim
 
-# Set work directory
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
+
 WORKDIR /app
 
-# Install dependencies
-COPY requirements.txt /app/
-RUN pip install --upgrade pip && pip install -r requirements.txt
+# System deps (adjust if you need extra libs)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl ca-certificates && \
+    rm -rf /var/lib/apt/lists/*
 
-# Copy all project files
-COPY . /app/
+# Python deps
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose Flask port
+# App code
+COPY . .
+
 EXPOSE 5000
 
-# Start the application
-CMD ["python", "app.py"]
+# Use Flask factory: app:create_app()
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:create_app()"]
