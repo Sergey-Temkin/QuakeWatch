@@ -1,0 +1,25 @@
+{{- if .Values.cronjob.enabled }}
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "quakewatch.fullname" . }}-ping
+  labels:
+    {{- include "quakewatch.labels" . | nindent 4 }}
+spec:
+  schedule: {{ .Values.cronjob.schedule | quote }}
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: pinger
+              image: curlimages/curl:8.9.1
+              args:
+                - /bin/sh
+                - -c
+                - >
+                  curl -fsS http://{{ include "quakewatch.fullname" . }}:{{ .Values.service.port }}{{ .Values.probes.readiness.path }} || exit 1
+{{- end }}

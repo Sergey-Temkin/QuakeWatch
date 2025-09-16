@@ -1,0 +1,6 @@
+apiVersion: v2
+name: quakewatch
+description: Helm chart for the QuakeWatch Flask app (Phase 3)
+type: application
+version: 0.1.0        # Bump this when you change the chart
+appVersion: "1.0.0"   # Your app version (informational)
