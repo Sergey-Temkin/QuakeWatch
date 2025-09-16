@@ -152,7 +152,7 @@ jobs:
           echo "Logging in to ghcr.io as ${{ github.actor }}"
           helm registry login ghcr.io \
             -u "${{ github.actor }}" \
-            -p "${{ secrets.GITHUB_TOKEN }}"
+            -p "${{ secrets.GHCR_PAT }}"
 
       - name: Push chart to GHCR
         working-directory: k8s/helm
