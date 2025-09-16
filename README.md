@@ -75,3 +75,7 @@ The project includes a custom filter `timestamp_to_str` that converts epoch time
 
 - **SSL Warning:** You might see a warning regarding LibreSSL when using urllib3. This is informational and does not affect the functionality of the application.
 - **Matplotlib Backend:** The application forces Matplotlib to use the `Agg` backend for headless rendering. Ensure this setting is applied before any Matplotlib imports to avoid GUI-related errors.
+
+## Future Work
+- Add GitHub Actions CI/CD (matrix + pylint)
+- Add monitoring (Prometheus/Grafana)
