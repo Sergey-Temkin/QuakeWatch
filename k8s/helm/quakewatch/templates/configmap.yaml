@@ -1,8 +1,11 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ include "quakewatch.fullname" . }}-config
+  name: {{ include "quakewatch.fullname" . }}
   labels:
     {{- include "quakewatch.labels" . | nindent 4 }}
+  annotations:
+    # ensure this applies before the Deployment
+    argocd.argoproj.io/sync-wave: "-1"
 data:
   LOG_LEVEL: {{ .Values.config.LOG_LEVEL | quote }}

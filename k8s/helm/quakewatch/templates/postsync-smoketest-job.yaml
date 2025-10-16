@@ -1,0 +1,38 @@
+{{- if .Values.hooks.postSyncSmokeTest.enabled }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "quakewatch.fullname" . }}-postsync-smoketest-{{ now | date "20060102150405" }}
+  labels:
+    {{- include "quakewatch.labels" . | nindent 4 }}
+  annotations:
+    # Run after a successful sync
+    argocd.argoproj.io/hook: PostSync
+    # Keep current run; delete only older hook jobs
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  backoffLimit: 2
+  ttlSecondsAfterFinished: 300
+  template:
+    metadata:
+      labels:
+        {{- include "quakewatch.selectorLabels" . | nindent 8 }}
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: smoketest
+          image: curlimages/curl:8.9.1
+          args:
+            - /bin/sh
+            - -c
+            - |
+              echo "PostSync smoketest: waiting for app health..."
+              for i in $(seq 1 30); do
+                if curl -fsS http://{{ include "quakewatch.fullname" . }}:{{ .Values.service.port }}/health >/dev/null; then
+                  echo "Health OK"; exit 0
+                fi
+                echo "not ready yet (\$i)"; sleep 2
+              done
+              echo "Health check failed"; exit 1
+{{- end }}
