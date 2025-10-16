@@ -1,0 +1,24 @@
+grafana:
+  adminPassword: "admin123"        # default login admin/admin123
+  service:
+    type: NodePort
+    nodePort: 32000
+  sidecar:
+    dashboards:
+      enabled: true
+      label: grafana_dashboard
+      folder: /var/lib/grafana/dashboards/custom
+
+prometheus:
+  service:
+    type: NodePort
+    nodePort: 32090
+  prometheusSpec:
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
+    ruleSelectorNilUsesHelmValues: false
+kubelet:
+  serviceMonitor:
+    cAdvisor: true   # <-- enable container metrics scraping
+    probes: true
+    resource: true

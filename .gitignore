@@ -108,3 +108,63 @@ docker-compose.override.yml
 # Default ignored files
 /shelf/
 /workspace.xml
+
+# =========================
+# Helm / Kubernetes (add-on for Phase 4)
+# =========================
+# Helm package / cache / lock
+**/charts/*.tgz
+**/.helm/
+**/Chart.lock
+**/values.schema.json
+
+# kubectl / kubeconfig / local outputs
+.kube/
+*.kubeconfig
+kubeconfig*
+config.yaml
+**/output/
+**/*.orig
+
+# ArgoCD temporary / local cache
+.argocd/
+*.argocd*
+**/sync-temp/
+
+# =========================
+# Monitoring (Prometheus / Grafana)
+# =========================
+# Runtime data & dashboards generated at runtime
+**/data/
+**/grafana-data/
+**/prometheus-data/
+**/alertmanager-data/
+*.db
+*.json.bak
+*.rdb
+
+# Local logs or metric dumps
+*.out
+*.err
+
+# =========================
+# CI/CD or IaC extras
+# =========================
+# Terraform / Plan outputs (if used)
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+
+# GitHub Actions / pipeline caches
+**/.cache/
+**/__cache__/
+**/.pytest_cache/
+
+# =========================
+# OS / IDE Safety (duplicates just in case)
+# =========================
+# Windows / macOS
+Desktop.ini
+Thumbs.db
+.DS_Store

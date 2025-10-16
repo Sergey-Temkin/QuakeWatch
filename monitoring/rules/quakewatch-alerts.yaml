@@ -1,0 +1,29 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: quakewatch-alerts
+  namespace: monitoring
+  labels:
+    app: kube-prometheus-stack
+    release: monitoring             # <— this is the key label Prometheus watches
+spec:
+  groups:
+    - name: quakewatch.rules
+      rules:
+        - alert: QuakeWatchHighCPU
+          expr: sum by (pod) (rate(container_cpu_usage_seconds_total{pod=~"quakewatch-.*"}[5m])) > 0.3
+          for: 1m
+          labels:
+            severity: warning
+          annotations:
+            summary: "High CPU usage on {{ $labels.pod }}"
+            description: "CPU usage > 30% for 1 minute."
+
+        - alert: QuakeWatchPodRestarts
+          expr: increase(kube_pod_container_status_restarts_total{namespace="quakewatch"}[5m]) > 0
+          for: 0m
+          labels:
+            severity: critical
+          annotations:
+            summary: "Pod restart detected ({{ $labels.pod }})"
+            description: "Pod restarted within the last 5 minutes."
