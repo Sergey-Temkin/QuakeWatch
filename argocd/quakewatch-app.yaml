@@ -14,7 +14,7 @@ spec:
       values: |
         image:
           repository: sergeytemkin/quakewatch
-          tag: v2
+          tag: v3
         service:
           type: NodePort
           port: 5000

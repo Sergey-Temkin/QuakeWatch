@@ -168,3 +168,27 @@ crash.log
 Desktop.ini
 Thumbs.db
 .DS_Store
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+override.tf
+override.tf.json
+terraform.tfvars.backup
+
+# Kube
+kubeconfig
+
+# Secrets/keys
+*.pem
+*.key
+*.crt
+*.csv
+k8s/secret.yaml
+
+# Python, Node, etc. (if present)
+__pycache__/
+*.pyc
+node_modules/
